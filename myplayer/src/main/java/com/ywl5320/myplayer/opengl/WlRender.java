@@ -5,6 +5,7 @@ import android.graphics.SurfaceTexture;
 import android.opengl.GLES11Ext;
 import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
+import android.util.Log;
 import android.view.Surface;
 
 import com.ywl5320.myplayer.R;
@@ -73,6 +74,36 @@ public class WlRender implements GLSurfaceView.Renderer, SurfaceTexture.OnFrameA
     private OnSurfaceCreateListener onSurfaceCreateListener;
     private OnRenderListener onRenderListener;
 
+    //fps
+    private long fps_start = 0;
+    private long fps_now = 0;
+    // 1s = 10^9 ns
+    private long fps_max_interval = 1000000000L;
+    private long fps = 0;
+    int fps_frameCount = 0;
+
+
+    public void fps_start(){
+        fps_start = System.nanoTime();
+        fps_frameCount = 0;
+    }
+
+    // 单位时间内fps_max_interval绘制的帧数
+    public double get_fps(){
+        fps_frameCount++;
+        fps_now = System.nanoTime();
+        if(fps_now - fps_start >= fps_max_interval){
+            fps = fps_frameCount;
+            fps_frameCount = 0;
+            fps_start = fps_now;
+        }
+        else{
+            return -1;
+        }
+        return fps;
+    }
+
+
     public WlRender(Context context)
     {
         this.context = context;
@@ -125,6 +156,10 @@ public class WlRender implements GLSurfaceView.Renderer, SurfaceTexture.OnFrameA
             renderMediacodec();
         }
         GLES20.glDrawArrays(GLES20.GL_TRIANGLE_STRIP, 0, 4);
+        double now_fps = get_fps();
+        if(now_fps > 0){
+            Log.w("onDrawFrame", "now_fps：" +now_fps);
+        }
     }
 
     @Override
