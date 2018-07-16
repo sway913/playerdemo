@@ -1,10 +1,14 @@
 package com.ywl5320.mymusic;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -35,6 +39,8 @@ public class MainActivity extends AppCompatActivity {
     private SeekBar seekBar;
     private int position;
     private boolean seek = false;
+    private int REQUEST_VIDEO_CODE = 1;
+    private String videoPath = "/sdcard/qme-test/test.mp4";
 
     //读写权限
     private static String[] PERMISSIONS_STORAGE = {
@@ -54,7 +60,8 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-        
+        Intent i = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Video.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(i, REQUEST_VIDEO_CODE);
 
         tvTime = findViewById(R.id.tv_time);
         wlGLSurfaceView = findViewById(R.id.wlglsurfaceview);
@@ -146,8 +153,33 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == REQUEST_VIDEO_CODE && resultCode == RESULT_OK && null != data) {
+            Uri selectedVideo = data.getData();
+            String[] filePathColumn = { MediaStore.Video.Media.DATA };
+
+            Cursor cursor = getContentResolver().query(selectedVideo ,
+                    filePathColumn, null, null, null);
+            cursor.moveToFirst();
+
+            int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+            String Path = cursor.getString(columnIndex);
+            if(!Path.isEmpty()){
+                videoPath = Path;
+            }else{
+                videoPath = "/sdcard/qme-test/test.mp4";
+            }
+            cursor.close();
+        }
+    }
+
+
     public void begin(View view) {
-        wlPlayer.setSource("/sdcard/qme-test/test.mp4");
+        wlPlayer.setSource(videoPath);
         wlPlayer.parpared();
     }
 
