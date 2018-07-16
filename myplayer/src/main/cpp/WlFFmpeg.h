@@ -52,6 +52,12 @@ public:
 
     void seek(int64_t secds);
 
+    void setMute(int mute);
+
+    void setPitch(float pitch);
+
+    void setSpeed(float speed);
+
     int getCodecContext(AVCodecParameters *codecpar, AVCodecContext **avCodecContext);
 
 };

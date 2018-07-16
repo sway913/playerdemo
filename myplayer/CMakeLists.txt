@@ -8,14 +8,27 @@ add_library( # Sets the name of the library.
 
              SHARED
 
-             src/main/cpp/native-lib.cpp
-              src/main/cpp/WlAudio.cpp
-              src/main/cpp/WlCallJava.cpp
-              src/main/cpp/WlFFmpeg.cpp
-              src/main/cpp/WlQueue.cpp
-              src/main/cpp/WlPlaystatus.cpp
-              src/main/cpp/WlVideo.cpp
+                src/main/cpp/native-lib.cpp
+                src/main/cpp/WlAudio.cpp
+                src/main/cpp/WlCallJava.cpp
+                src/main/cpp/WlFFmpeg.cpp
+                src/main/cpp/WlQueue.cpp
+                src/main/cpp/WlPlaystatus.cpp
+                src/main/cpp/WlVideo.cpp
 
+                src/main/cpp/SoundTouch/AAFilter.cpp
+                src/main/cpp/SoundTouch/FIFOSampleBuffer.cpp
+                src/main/cpp/SoundTouch/FIRFilter.cpp
+                src/main/cpp/SoundTouch/cpu_detect_x86.cpp
+                src/main/cpp/SoundTouch/sse_optimized.cpp
+                src/main/cpp/SoundTouch/RateTransposer.cpp
+                src/main/cpp/SoundTouch/SoundTouch.cpp
+                src/main/cpp/SoundTouch/InterpolateCubic.cpp
+                src/main/cpp/SoundTouch/InterpolateLinear.cpp
+                src/main/cpp/SoundTouch/InterpolateShannon.cpp
+                src/main/cpp/SoundTouch/TDStretch.cpp
+                src/main/cpp/SoundTouch/BPMDetect.cpp
+                src/main/cpp/SoundTouch/PeakFinder.cpp
               )
 
 add_library( avcodec-57 SHARED IMPORTED)

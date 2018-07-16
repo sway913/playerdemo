@@ -132,3 +132,39 @@ Java_com_ywl5320_myplayer_player_WlPlayer_n_1seek(JNIEnv *env, jobject instance,
     }
 
 }
+
+extern "C"
+JNIEXPORT void JNICALL
+Java_com_ywl5320_myplayer_player_WlPlayer_n_1mute(JNIEnv *env, jobject instance, jint mute) {
+
+    // TODO
+    if(fFmpeg != NULL)
+    {
+        fFmpeg->setMute(mute);
+    }
+
+}
+
+extern "C"
+JNIEXPORT void JNICALL
+Java_com_ywl5320_myplayer_player_WlPlayer_n_1pitch(JNIEnv *env, jobject instance, jfloat pitch) {
+
+    // TODO
+    if(fFmpeg != NULL)
+    {
+        fFmpeg->setPitch(pitch);
+    }
+
+}
+
+extern "C"
+JNIEXPORT void JNICALL
+Java_com_ywl5320_myplayer_player_WlPlayer_n_1speed(JNIEnv *env, jobject instance, jfloat speed) {
+
+    // TODO
+    if(fFmpeg != NULL)
+    {
+        fFmpeg->setSpeed(speed);
+    }
+
+}

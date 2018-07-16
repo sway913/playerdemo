@@ -23,6 +23,7 @@ import com.ywl5320.myplayer.listener.WlOnPauseResumeListener;
 import com.ywl5320.myplayer.listener.WlOnTimeInfoListener;
 import com.ywl5320.myplayer.log.MyLog;
 import com.ywl5320.myplayer.opengl.WlGLSurfaceView;
+import com.ywl5320.myplayer.player.MuteEnum;
 import com.ywl5320.myplayer.player.WlPlayer;
 import com.ywl5320.myplayer.util.WlTimeUtil;
 
@@ -53,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
+        
 
         tvTime = findViewById(R.id.tv_time);
         wlGLSurfaceView = findViewById(R.id.wlglsurfaceview);
@@ -183,5 +185,38 @@ public class MainActivity extends AppCompatActivity {
 
     public void next(View view) {
         wlPlayer.playNext("/sdcard/qme-test/test.mp4");
+    }
+
+    //audio
+    public void onAudioLeft(View view){
+        wlPlayer.setMute(MuteEnum.MUTE_LEFT);
+    }
+
+    public void onAudioRight(View view){
+        wlPlayer.setMute(MuteEnum.MUTE_RIGHT);
+    }
+
+    public void onAudioCenter(View view){
+        wlPlayer.setMute(MuteEnum.MUTE_CENTER);
+    }
+
+    public void speed(View view) {
+        wlPlayer.setSpeed(1.5f);
+        wlPlayer.setPitch(1.0f);
+    }
+
+    public void pitch(View view) {
+        wlPlayer.setPitch(1.5f);
+        wlPlayer.setSpeed(1.0f);
+    }
+
+    public void speedpitch(View view) {
+        wlPlayer.setSpeed(1.5f);
+        wlPlayer.setPitch(1.7f);
+    }
+
+    public void normalspeedpitch(View view) {
+        wlPlayer.setSpeed(1.0f);
+        wlPlayer.setPitch(1.0f);
     }
 }

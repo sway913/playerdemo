@@ -40,6 +40,9 @@ public class WlPlayer {
     private static String source;//数据源
     private static WlTimeInfoBean wlTimeInfoBean;
     private static boolean playNext = false;
+    private static MuteEnum muteEnum = MuteEnum.MUTE_CENTER;
+    private static float speed = 1.0f;
+    private static float pitch = 1.0f;
     private WlOnParparedListener wlOnParparedListener;
     private WlOnLoadListener wlOnLoadListener;
     private WlOnPauseResumeListener wlOnPauseResumeListener;
@@ -182,6 +185,24 @@ public class WlPlayer {
         source = url;
         playNext = true;
         stop();
+    }
+
+    public void setMute(MuteEnum mute)
+    {
+        muteEnum = mute;
+        n_mute(mute.getValue());
+    }
+
+    public void setPitch(float p)
+    {
+        pitch = p;
+        n_pitch(pitch);
+    }
+
+    public void setSpeed(float s)
+    {
+        speed = s;
+        n_speed(speed);
     }
 
     public int getDuration() {
@@ -350,6 +371,9 @@ public class WlPlayer {
     private native void n_resume();
     private native void n_stop();
     private native void n_seek(int secds);
+    private native void n_mute(int mute);
+    private native void n_pitch(float pitch);
+    private native void n_speed(float speed);
 
 
 

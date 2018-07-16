@@ -8,6 +8,9 @@
 #include "WlQueue.h"
 #include "WlPlaystatus.h"
 #include "WlCallJava.h"
+#include "SoundTouch.h"
+
+using namespace soundtouch;
 
 extern "C"
 {
@@ -61,12 +64,28 @@ public:
 
     pthread_mutex_t codecMutex;
 
+    SLMuteSoloItf  pcmMutePlay = NULL;
+    //SoundTouch
+    SoundTouch *soundTouch = NULL;
+    SAMPLETYPE *sampleBuffer = NULL;
+    bool finished = true;
+    uint8_t *out_buffer = NULL;
+    int nb = 0;
+    int num = 0;
+
+    float pitch = 1.0f;
+    float speed = 1.0f;
+
+    int mute = 2;
 public:
     WlAudio(WlPlaystatus *playstatus, int sample_rate, WlCallJava *callJava);
     ~WlAudio();
 
+    void setMute(int mute);
+    void setPitch(float fpitch);
+    void setSpeed(float fspeed);
     void play();
-    int resampleAudio();
+    int resampleAudio(void **pcmbuf);
 
     void initOpenSLES();
 
@@ -79,6 +98,8 @@ public:
     void stop();
 
     void release();
+
+    int getSoundTouchData();
 
 
 };

@@ -354,6 +354,31 @@ WlFFmpeg::~WlFFmpeg() {
     pthread_mutex_destroy(&seek_mutex);
 }
 
+void WlFFmpeg::setMute(int mute) {
+    if(audio != NULL)
+    {
+        audio->setMute(mute);
+    }
+}
+
+void WlFFmpeg::setPitch(float pitch) {
+
+    if(audio != NULL)
+    {
+        audio->setPitch(pitch);
+    }
+
+}
+
+void WlFFmpeg::setSpeed(float speed) {
+
+    if(audio != NULL)
+    {
+        audio->setSpeed(speed);
+    }
+
+}
+
 void WlFFmpeg::seek(int64_t secds) {
 
     LOGE("seek time %d", secds);
